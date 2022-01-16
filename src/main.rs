@@ -1,18 +1,10 @@
 mod test_mod;
 mod core;
 
-use std::env;
 use std::process;
 
 fn main() {
     println!("Hello, world!");
-
-    // 引数の読み取り
-    let args: Vec<String> = env::args().collect();
-    println!("args len = {}, {:?}", args.len(), args);
-    let query = &args[1];
-    let filename = &args[2];
-    println!("{} {}", query, filename);
 
     // モジュールの実装テスト
     test_mod::foo::foo_func1();
@@ -20,6 +12,7 @@ fn main() {
     test_mod::bar::bar_func();
 
     // csv読込
+    let filename = "data.csv";
     if let Err(err) = test_mod::csv_read::csv_read(filename) {
         println!("error runninng read: {}", err);
         process::exit(-1);
@@ -75,5 +68,9 @@ fn main() {
     let val1 = 10.0;
     let val2 = 10.0;
     println!("Thokan = {},{}, {}", val1, val2, vw.get_value(val1, val2));
+
+    // Quartenionのテスト
+    let q1 = core::quartenion::Quartenion::new();
+    q1.output();
 
 }

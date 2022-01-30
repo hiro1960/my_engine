@@ -26,6 +26,7 @@ pub struct Integrator1 {
 }
 
 impl Integrator1 {
+  // 積分刻みが引数
   pub fn new(t:f64) -> Integrator1 {
     Integrator1{
       out:0.0,

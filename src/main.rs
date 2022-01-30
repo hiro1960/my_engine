@@ -56,6 +56,8 @@ fn main() {
 
     let val = 3.1;
     println!("hokan = {}, {}", val, vv.get_value(val));
+    let val = 3.5;
+    println!("hokan = {}, {}", val, vv.get_value(val));
 
     let mut vw = core::tcont::Tcont::new();
     let filename_t = "dataT.csv";
@@ -68,6 +70,12 @@ fn main() {
     let val1 = 10.0;
     let val2 = 10.0;
     println!("Thokan = {},{}, {}", val1, val2, vw.get_value(val1, val2));
+
+    // 積分のテスト
+    println!("積分のテスト");
+    let mut int = core::etc::Integrator1::new();
+    println!("{}", int.get(1.0, 1.0));
+    println!("{}", int.get(1.0, 1.0));
 
     // Quartenionのテスト
     let q1 = core::quartenion::Quartenion::new();

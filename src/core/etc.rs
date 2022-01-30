@@ -19,26 +19,25 @@ pub fn hokan(x:f64, x1:f64, x2:f64, v1:f64, v2:f64) -> f64 {
 }
 
 // 積分関数
-// 注：積分をするときは、途中で刻みは変えないのでメンバーにしたほうがいい
-// 　　しかし既存が引数に刻みを入れているので、合わせておく
 pub struct Integrator1 {
   out: f64,
   mem: f64,
+  dt : f64,
 }
 
 impl Integrator1 {
-  pub fn new() -> Integrator1 {
+  pub fn new(t:f64) -> Integrator1 {
     Integrator1{
       out:0.0,
       mem:0.0,
+      dt:t,
     }
   }
 
   // 積分
   // inpd: 入力値
-  // dt: 刻み
   // -> 積分結果
-  pub fn get(&mut self, inpd:f64, dt:f64 ) -> f64 {
+  pub fn get(&mut self, inpd:f64 ) -> f64 {
     //                                                                                                         
     // improved trapezoidal integral                                                                           
     //                                                                                                         
@@ -48,7 +47,7 @@ impl Integrator1 {
     //    
     let outd:f64; // 積分結果
 
-    outd = self.out + ( 3.0 * inpd - self.mem ) * dt / 2.0;
+    outd = self.out + ( 3.0 * inpd - self.mem ) * self.dt / 2.0;
     self.mem = inpd;
     self.out = outd;
 

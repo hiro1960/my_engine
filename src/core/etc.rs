@@ -46,7 +46,7 @@ impl Integrator1 {
     //                                                                                                         
     // mem: inpd(t-1)                                                                                          
     //    
-    let outd:f64;
+    let outd:f64; // 積分結果
 
     outd = self.out + ( 3.0 * inpd - self.mem ) * dt / 2.0;
     self.mem = inpd;

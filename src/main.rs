@@ -72,13 +72,14 @@ fn main() {
     println!("Thokan = {},{}, {}", val1, val2, vw.get_value(val1, val2));
 
     // 積分のテスト
-    println!("積分のテスト");
-    let mut int = core::etc::Integrator1::new(1.0);
-    println!("{}", int.get(1.0));
-    println!("{}", int.get(1.0));
+    test_mod::foo::integ_test();
 
     // Quartenionのテスト
-    let q1 = core::quartenion::Quartenion::new();
-    q1.output();
+    test_mod::foo::quart_test();
+
+    // PI1はf64型
+    let psi = std::f64::consts::PI;
+    let psi2 = psi / 2.0;
+    println!("cos = {}", psi.cos());
 
 }

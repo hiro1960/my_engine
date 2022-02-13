@@ -22,7 +22,7 @@ pub fn quart_test() {
         println!("### Quartenionのテスト");
         let mut q1 = core::quartenion::Quartenion::new();
         // q1.initialize(0.1, 0.1, 0.1, 0.1);
-        q1.initialize(0.1, -0.1, 0.2, 0.1);
+        q1.initialize(0.1, 0.1, 0.1, 0.1);
         q1.output();
 
         // println!("{}", q1.mat[[0, 0]]);
@@ -36,6 +36,11 @@ pub fn quart_test() {
         let mut dest_pt = core::point::Point::new();
 
         dest_pt = q1.euler_trans(&src_pt);
+        println!(" trans result ");
+        dest_pt.print_val();
+
+        q1.update_quartenion(0.01, 0.01, 0.01);
+        q1.output();
         println!(" trans result ");
         dest_pt.print_val();
 

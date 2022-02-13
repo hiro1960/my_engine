@@ -5,8 +5,14 @@
     ndarray="0.15.0"
 */
 
+use super::super::core; // この参照方式でないと、core内のmoduleを使えない
+// use core;    // error
+// mod core;   // error
+// use self::core;  // error
+
 use ndarray::prelude::*;
 
+// #[derive(Default)]
 pub struct Quartenion {
     e0: f64,
     e1: f64,
@@ -39,7 +45,7 @@ impl Quartenion {
     }
 
     // 初期化
-    // phi, theta, psi [rad]
+    // param@ phi, theta, psi [rad]
     pub fn initialize(&mut self, phi:f64, theta:f64, psi:f64 ) {
         let cos_psi2 = ( psi / 2.0 ).cos();
         let sin_psi2 = ( psi / 2.0 ).sin();
@@ -84,7 +90,21 @@ impl Quartenion {
         self.mat[[2,0]] = 2.0 * (e1e3 - e0e2); // n1
         self.mat[[2,1]] = 2.0 * (e0e1 + e2e3); // n2
         self.mat[[2,2]] = e0e0 - e1e1 - e2e2 + e3e3;   // n3
-    
+    }
+
+    // オイラー変換
+    // param@ org[in] Point型　位置ベクトル
+    // return Point型　変換結果
+    pub fn euler_trans(&self, org: &core::point::Point ) -> core::point::Point {
+        let vec = arr1(&[org.x(), org.y(), org.z()]);
+        let vec_r = vec.dot(&self.mat);
+        let mut dest = core::point::Point::new();
+
+        dest.set_x(vec_r[0]);
+        dest.set_y(vec_r[1]);
+        dest.set_z(vec_r[2]);
+
+        return dest;
     }
 
     // debug用出力

@@ -30,6 +30,18 @@ impl Point {
         self.pos[2] = val;
     }
 
+    pub fn x(&self) -> f64 {
+        return self.pos[0];
+    }
+
+    pub fn y(&self) -> f64 {
+        return self.pos[1];
+    }
+
+    pub fn z(&self) -> f64 {
+        return self.pos[2];
+    }
+
     pub fn print_val(&self) {
         println!("( {}, {}, {} )", self.pos[0], self.pos[1], self.pos[2]);
     }

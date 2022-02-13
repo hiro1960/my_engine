@@ -19,10 +19,14 @@ pub struct Quartenion {
     e2: f64,
     e3: f64,
 
-    e0DotPre: f64,
-    e1DotPre: f64,
-    e2DotPre: f64,
-    e3DotPre: f64,
+    // quartenion更新刻み[s]
+    dtime: f64,
+
+    // 積分用メンバー
+    e0Intg: core::etc::Integrator1,
+    e1Intg: core::etc::Integrator1,
+    e2Intg: core::etc::Integrator1,
+    e3Intg: core::etc::Integrator1,
 
     // mat: Array2<[[f64; 3]; 3]>   // ここでサイズ指定までしてしまうと、初期化がうまくいかない
     mat: Array2<f64>
@@ -34,10 +38,14 @@ impl Quartenion {
         // 初期値
         Quartenion{ 
             e0: 0.0, e1:0.0, e2:0.0, e3:0.0,
-            e0DotPre: 0.0,
-            e1DotPre: 0.0,
-            e2DotPre: 0.0,
-            e3DotPre: 0.0,
+
+            dtime: 0.0,
+
+            e0Intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
+            e1Intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
+            e2Intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
+            e3Intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
+
             // 行列のサイズは初期化で指定する
             mat: ndarray::arr2( &[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0] ])
             // mat: ndarray::arr2( &[[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0] ])   // テスト用
@@ -45,8 +53,9 @@ impl Quartenion {
     }
 
     // 初期化
-    // param@ phi, theta, psi [rad]
-    pub fn initialize(&mut self, phi:f64, theta:f64, psi:f64 ) {
+    // param@[in] phi, theta, psi [rad]
+    // param@[in] dtime [s]
+    pub fn initialize(&mut self, phi:f64, theta:f64, psi:f64, dtime:f64 ) {
         let cos_psi2 = ( psi / 2.0 ).cos();
         let sin_psi2 = ( psi / 2.0 ).sin();
         let cos_theta2 = ( theta / 2.0 ).cos();
@@ -59,10 +68,12 @@ impl Quartenion {
         self.e2 = cos_psi2*sin_theta2*cos_phi2 + sin_psi2*cos_theta2*sin_phi2;
         self.e3 = -cos_psi2*sin_theta2*sin_phi2 + sin_psi2*cos_theta2*cos_phi2;
     
-        self.e3DotPre = 0.0;
-        self.e2DotPre = 0.0;
-        self.e1DotPre = 0.0;
-        self.e0DotPre = 0.0;
+        self.dtime = dtime;
+
+        self.e0Intg = core::etc::Integrator1::new(dtime);
+        self.e1Intg = core::etc::Integrator1::new(dtime);
+        self.e2Intg = core::etc::Integrator1::new(dtime);
+        self.e3Intg = core::etc::Integrator1::new(dtime);
     
         self.update_euler_matrix();
     }
@@ -91,6 +102,59 @@ impl Quartenion {
         self.mat[[2,1]] = 2.0 * (e0e1 + e2e3); // n2
         self.mat[[2,2]] = e0e0 - e1e1 - e2e2 + e3e3;   // n3
     }
+
+    // quartenionの更新
+    // param@[in] p, q, r [rad/s]
+    pub fn update_quartenion(&mut self, p:f64, q:f64, r:f64, dtime:f64) {
+        let Kq:f64 = 0.0;
+        let Keps:f64 = Kq * (1.0 - (self.e0*self.e0 + self.e1*self.e1 + self.e2*self.e2 + self.e3*self.e3));
+
+        let e0Dot:f64 = -(self.e1*p+self.e2*q+self.e3*r)/2.0 + Keps*self.e0;
+        let e1Dot:f64 = (self.e0*p-self.e3*q+self.e2*r)/2.0 + Keps*self.e1;
+        let e2Dot:f64 = (self.e3*p+self.e0*q-self.e1*r)/2.0 + Keps*self.e2;
+        let e3Dot:f64 = (-self.e2*p+self.e1*q+self.e0*r)/2.0 + Keps*self.e3;
+    
+        self.e0 = self.e0Intg.get( e0Dot );
+        self.e1 = self.e0Intg.get( e1Dot );
+        self.e2 = self.e0Intg.get( e2Dot );
+        self.e3 = self.e0Intg.get( e3Dot );
+
+        let aa = (self.e0*self.e0 + self.e1*self.e1 + self.e2*self.e2 + self.e3*self.e3).sqrt();
+
+        self.e0 = self.e0 / aa;
+	    self.e1 = self.e1 / aa;
+	    self.e2 = self.e2 / aa;
+	    self.e3 = self.e3 / aa;
+
+        self.update_euler_matrix();
+    }
+
+// func (v *Quartenion) UpdateQuartenion(p, q, r, dtime float64) {
+// 	var Kq float64
+// 	Kq = 0.0
+
+// 	Keps := Kq * (1.0 - (v.e0*v.e0 + v.e1*v.e1 + v.e2*v.e2 + v.e3*v.e3))
+
+// 	e0Dot := -(v.e1*p+v.e2*q+v.e3*r)/2.0 + Keps*v.e0
+// 	e1Dot := (v.e0*p-v.e3*q+v.e2*r)/2.0 + Keps*v.e1
+// 	e2Dot := (v.e3*p+v.e0*q-v.e1*r)/2.0 + Keps*v.e2
+// 	e3Dot := (-v.e2*p+v.e1*q+v.e0*r)/2.0 + Keps*v.e3
+
+// 	IntegImp(e0Dot, dtime, &v.e0Intg, &v.e0)
+// 	IntegImp(e1Dot, dtime, &v.e1Intg, &v.e1)
+// 	IntegImp(e2Dot, dtime, &v.e2Intg, &v.e2)
+// 	IntegImp(e3Dot, dtime, &v.e3Intg, &v.e3)
+
+// 	aa := math.Sqrt(v.e0*v.e0 + v.e1*v.e1 + v.e2*v.e2 + v.e3*v.e3)
+// 	v.e0 = v.e0 / aa
+// 	v.e1 = v.e1 / aa
+// 	v.e2 = v.e2 / aa
+// 	v.e3 = v.e3 / aa
+
+// 	v.UpdateEulerMatrix()
+// }
+
+
 
     // オイラー変換
     // param@ org[in] Point型　位置ベクトル

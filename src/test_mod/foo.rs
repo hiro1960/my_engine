@@ -21,8 +21,8 @@ pub fn quart_test() {
         // Quartenionのテスト
         println!("### Quartenionのテスト");
         let mut q1 = core::quartenion::Quartenion::new();
-        // q1.initialize(0.1, 0.1, 0.1);
-        q1.initialize(0.1, -0.1, 0.2);
+        // q1.initialize(0.1, 0.1, 0.1, 0.1);
+        q1.initialize(0.1, -0.1, 0.2, 0.1);
         q1.output();
 
         // println!("{}", q1.mat[[0, 0]]);

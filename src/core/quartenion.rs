@@ -107,6 +107,21 @@ impl Quartenion {
         return dest;
     }
 
+    // 逆オイラー変換
+    // param@ org[in] Point型　位置ベクトル
+    // return Point型　変換結果
+    pub fn euler_trans_inv(&self, org: &core::point::Point ) -> core::point::Point {
+        let vec = arr1(&[org.x(), org.y(), org.z()]);
+        let vec_r = self.mat.dot(&vec);
+        let mut dest = core::point::Point::new();
+
+        dest.set_x(vec_r[0]);
+        dest.set_y(vec_r[1]);
+        dest.set_z(vec_r[2]);
+
+        return dest;
+    }
+
     // debug用出力
     pub fn output(&self) {
         println!("in quartenion :");

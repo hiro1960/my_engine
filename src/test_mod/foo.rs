@@ -39,4 +39,8 @@ pub fn quart_test() {
         println!(" trans result ");
         dest_pt.print_val();
 
+        dest_pt = q1.euler_trans_inv(&src_pt);
+        println!(" inv result ");
+        dest_pt.print_val();
+
     }

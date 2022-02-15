@@ -114,10 +114,10 @@ impl Quartenion {
         let e2Dot:f64 = (self.e3*p+self.e0*q-self.e1*r)/2.0 + Keps*self.e2;
         let e3Dot:f64 = (-self.e2*p+self.e1*q+self.e0*r)/2.0 + Keps*self.e3;
     
-        self.e0 = self.e0Intg.get( e0Dot );
-        self.e1 = self.e0Intg.get( e1Dot );
-        self.e2 = self.e0Intg.get( e2Dot );
-        self.e3 = self.e0Intg.get( e3Dot );
+        self.e0 = self.e0Intg.get( self.e0, e0Dot );
+        self.e1 = self.e0Intg.get( self.e1, e1Dot );
+        self.e2 = self.e0Intg.get( self.e2, e2Dot );
+        self.e3 = self.e0Intg.get( self.e3, e3Dot );
 
         let aa = (self.e0*self.e0 + self.e1*self.e1 + self.e2*self.e2 + self.e3*self.e3).sqrt();
 

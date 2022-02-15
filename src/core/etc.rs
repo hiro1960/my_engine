@@ -38,7 +38,7 @@ impl Integrator1 {
   // 積分
   // inpd: 入力値
   // -> 積分結果
-  pub fn get(&mut self, inpd:f64 ) -> f64 {
+  pub fn get(&mut self, out:f64, inpd:f64 ) -> f64 {
     //                                                                                                         
     // improved trapezoidal integral                                                                           
     //                                                                                                         
@@ -48,7 +48,7 @@ impl Integrator1 {
     //    
     let outd:f64; // 積分結果
 
-    outd = self.out + ( 3.0 * inpd - self.mem ) * self.dt / 2.0;
+    outd = out + ( 3.0 * inpd - self.mem ) * self.dt / 2.0;
     self.mem = inpd;
     self.out = outd;
 

@@ -13,8 +13,11 @@ pub fn integ_test() {
         // 積分のテスト
         println!("### 積分のテスト");
         let mut int = core::etc::Integrator1::new(1.0);
-        println!("{}", int.get(1.0));
-        println!("{}", int.get(1.0));    
+        let mut work = 1.0;
+        work = int.get(work, 0.1);
+        println!("{}", work);
+        work = int.get(work, 0.1);
+        println!("{}", work);
 }
 
 pub fn quart_test() {

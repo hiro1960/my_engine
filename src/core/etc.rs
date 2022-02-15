@@ -49,6 +49,7 @@ impl Integrator1 {
     outd = out + ( 3.0 * inpd - self.mem ) * self.dt / 2.0;
     self.mem = inpd;
 
-    return outd;
+    // returnと書かなくてもOK
+    outd
   }
 }

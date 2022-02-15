@@ -23,10 +23,10 @@ pub struct Quartenion {
     dtime: f64,
 
     // 積分用メンバー
-    e0Intg: core::etc::Integrator1,
-    e1Intg: core::etc::Integrator1,
-    e2Intg: core::etc::Integrator1,
-    e3Intg: core::etc::Integrator1,
+    eo_intg: core::etc::Integrator1,
+    e1_intg: core::etc::Integrator1,
+    e2_intg: core::etc::Integrator1,
+    e3_intg: core::etc::Integrator1,
 
     // mat: Array2<[[f64; 3]; 3]>   // ここでサイズ指定までしてしまうと、初期化がうまくいかない
     mat: Array2<f64>
@@ -41,10 +41,10 @@ impl Quartenion {
 
             dtime: 0.0,
 
-            e0Intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
-            e1Intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
-            e2Intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
-            e3Intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
+            eo_intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
+            e1_intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
+            e2_intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
+            e3_intg: core::etc::Integrator1::new(1.0),  // とりあえず仮の値で初期化
 
             // 行列のサイズは初期化で指定する
             mat: ndarray::arr2( &[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0] ])
@@ -70,10 +70,10 @@ impl Quartenion {
     
         self.dtime = dtime;
 
-        self.e0Intg = core::etc::Integrator1::new(dtime);
-        self.e1Intg = core::etc::Integrator1::new(dtime);
-        self.e2Intg = core::etc::Integrator1::new(dtime);
-        self.e3Intg = core::etc::Integrator1::new(dtime);
+        self.eo_intg = core::etc::Integrator1::new(dtime);
+        self.e1_intg = core::etc::Integrator1::new(dtime);
+        self.e2_intg = core::etc::Integrator1::new(dtime);
+        self.e3_intg = core::etc::Integrator1::new(dtime);
     
         self.update_euler_matrix();
     }
@@ -106,18 +106,18 @@ impl Quartenion {
     // quartenionの更新
     // param@[in] p, q, r [rad/s]
     pub fn update_quartenion(&mut self, p:f64, q:f64, r:f64) {
-        let Kq:f64 = 0.0;
-        let Keps:f64 = Kq * (1.0 - (self.e0*self.e0 + self.e1*self.e1 + self.e2*self.e2 + self.e3*self.e3));
+        let kq:f64 = 0.0;
+        let keps:f64 = kq * (1.0 - (self.e0*self.e0 + self.e1*self.e1 + self.e2*self.e2 + self.e3*self.e3));
 
-        let e0Dot:f64 = -(self.e1*p+self.e2*q+self.e3*r)/2.0 + Keps*self.e0;
-        let e1Dot:f64 = (self.e0*p-self.e3*q+self.e2*r)/2.0 + Keps*self.e1;
-        let e2Dot:f64 = (self.e3*p+self.e0*q-self.e1*r)/2.0 + Keps*self.e2;
-        let e3Dot:f64 = (-self.e2*p+self.e1*q+self.e0*r)/2.0 + Keps*self.e3;
+        let e0_dot:f64 = -(self.e1*p+self.e2*q+self.e3*r)/2.0 + keps*self.e0;
+        let e1_dot:f64 = (self.e0*p-self.e3*q+self.e2*r)/2.0 + keps*self.e1;
+        let e2_dot:f64 = (self.e3*p+self.e0*q-self.e1*r)/2.0 + keps*self.e2;
+        let e3_dot:f64 = (-self.e2*p+self.e1*q+self.e0*r)/2.0 + keps*self.e3;
 
-        self.e0 = self.e0Intg.get( self.e0, e0Dot );
-        self.e1 = self.e1Intg.get( self.e1, e1Dot );
-        self.e2 = self.e2Intg.get( self.e2, e2Dot );
-        self.e3 = self.e3Intg.get( self.e3, e3Dot );
+        self.e0 = self.eo_intg.get( self.e0, e0_dot );
+        self.e1 = self.e1_intg.get( self.e1, e1_dot );
+        self.e2 = self.e2_intg.get( self.e2, e2_dot );
+        self.e3 = self.e3_intg.get( self.e3, e3_dot );
 
         let aa = (self.e0*self.e0 + self.e1*self.e1 + self.e2*self.e2 + self.e3*self.e3).sqrt();
 
@@ -135,15 +135,15 @@ impl Quartenion {
 
 // 	Keps := Kq * (1.0 - (v.e0*v.e0 + v.e1*v.e1 + v.e2*v.e2 + v.e3*v.e3))
 
-// 	e0Dot := -(v.e1*p+v.e2*q+v.e3*r)/2.0 + Keps*v.e0
-// 	e1Dot := (v.e0*p-v.e3*q+v.e2*r)/2.0 + Keps*v.e1
-// 	e2Dot := (v.e3*p+v.e0*q-v.e1*r)/2.0 + Keps*v.e2
-// 	e3Dot := (-v.e2*p+v.e1*q+v.e0*r)/2.0 + Keps*v.e3
+// 	e0_dot := -(v.e1*p+v.e2*q+v.e3*r)/2.0 + Keps*v.e0
+// 	e1_dot := (v.e0*p-v.e3*q+v.e2*r)/2.0 + Keps*v.e1
+// 	e2_dot := (v.e3*p+v.e0*q-v.e1*r)/2.0 + Keps*v.e2
+// 	e3_dot := (-v.e2*p+v.e1*q+v.e0*r)/2.0 + Keps*v.e3
 
-// 	IntegImp(e0Dot, dtime, &v.e0Intg, &v.e0)
-// 	IntegImp(e1Dot, dtime, &v.e1Intg, &v.e1)
-// 	IntegImp(e2Dot, dtime, &v.e2Intg, &v.e2)
-// 	IntegImp(e3Dot, dtime, &v.e3Intg, &v.e3)
+// 	IntegImp(e0_dot, dtime, &v.eo_intg, &v.e0)
+// 	IntegImp(e1_dot, dtime, &v.e1_intg, &v.e1)
+// 	IntegImp(e2_dot, dtime, &v.e2_intg, &v.e2)
+// 	IntegImp(e3_dot, dtime, &v.e3_intg, &v.e3)
 
 // 	aa := math.Sqrt(v.e0*v.e0 + v.e1*v.e1 + v.e2*v.e2 + v.e3*v.e3)
 // 	v.e0 = v.e0 / aa

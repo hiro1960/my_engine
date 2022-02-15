@@ -79,7 +79,7 @@ fn main() {
 
     // PI1はf64型
     let psi = std::f64::consts::PI;
-    let psi2 = psi / 2.0;
+    // let psi2 = psi / 2.0;
     println!("cos = {}", psi.cos());
 
 }

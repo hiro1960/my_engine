@@ -20,7 +20,6 @@ pub fn hokan(x:f64, x1:f64, x2:f64, v1:f64, v2:f64) -> f64 {
 
 // 積分関数
 pub struct Integrator1 {
-  out: f64,
   mem: f64,
   dt : f64,
 }
@@ -29,7 +28,6 @@ impl Integrator1 {
   // 積分刻みが引数
   pub fn new(t:f64) -> Integrator1 {
     Integrator1{
-      out:0.0,
       mem:0.0,
       dt:t,
     }
@@ -50,8 +48,7 @@ impl Integrator1 {
 
     outd = out + ( 3.0 * inpd - self.mem ) * self.dt / 2.0;
     self.mem = inpd;
-    self.out = outd;
 
-    outd
+    return outd;
   }
 }

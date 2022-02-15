@@ -43,6 +43,7 @@ pub fn quart_test() {
         dest_pt.print_val();
 
         q1.update_quartenion(0.01, 0.01, 0.01);
+        dest_pt = q1.euler_trans(&src_pt);
         q1.output();
         println!(" trans result ");
         dest_pt.print_val();

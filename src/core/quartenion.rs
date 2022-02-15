@@ -105,7 +105,7 @@ impl Quartenion {
 
     // quartenionの更新
     // param@[in] p, q, r [rad/s]
-    pub fn update_quartenion(&mut self, p:f64, q:f64, r:f64, dtime:f64) {
+    pub fn update_quartenion(&mut self, p:f64, q:f64, r:f64) {
         let Kq:f64 = 0.0;
         let Keps:f64 = Kq * (1.0 - (self.e0*self.e0 + self.e1*self.e1 + self.e2*self.e2 + self.e3*self.e3));
 
@@ -189,6 +189,7 @@ impl Quartenion {
     // debug用出力
     pub fn output(&self) {
         println!("in quartenion :");
+        println!("  e0-3 : {} {} {} {}", self.e0, self.e1, self.e2, self.e3);
         println!("{:?}", self.mat);
     }
 }

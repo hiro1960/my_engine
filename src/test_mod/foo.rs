@@ -12,12 +12,13 @@ pub fn foo_func2() {
 pub fn integ_test() {
         // 積分のテスト
         println!("### 積分のテスト");
-        let mut int = core::etc::Integrator1::new(1.0);
+        let mut int = core::etc::Integrator1::new(1.0, 1.0);
         let mut work = 1.0;
-        work = int.get(work, 0.1);
+        work = int.integral(0.1);
         println!("{}", work);
-        work = int.get(work, 0.1);
+        work = int.integral(0.1);
         println!("{}", work);
+        println!(" val = {}", int.val());
 }
 
 pub fn quart_test() {

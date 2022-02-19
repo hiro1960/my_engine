@@ -31,7 +31,11 @@ impl Tcont {
         println!("in tcont, {:?}", self.val);
     }
 
-    // containerへデータの読込
+    /**
+     * containerへデータの読込
+     * @param[in] file_name 3次元テーブル（csv）ファイル名
+     * @return 読み込み結果
+     */
     pub fn read(&mut self, file_name :&str) -> Result<(), Box<dyn Error>>{
         println!("in Tcont.read, {}", file_name);
 
@@ -82,7 +86,12 @@ impl Tcont {
     
     }
 
-    // 補間
+    /**
+     * 補間
+     * @param[in] v1 第1引数
+     * @param[in] v2 第2引数
+     * @return 補間結果
+     */
     pub fn get_value(&self, v1: f64, v2: f64) -> f64 {
         // 初期値の設定
         let mut index1 = v1;

@@ -12,7 +12,6 @@ use super::super::core; // この参照方式でないと、core内のmoduleを�
 
 use ndarray::prelude::*;
 
-// #[derive(Default)]
 pub struct Quartenion {
     // 積分用メンバー
     e0: core::etc::Integrator1,
@@ -40,9 +39,13 @@ impl Quartenion {
         }
     }
 
-    // 初期化
-    // param@[in] phi, theta, psi [rad]
-    // param@[in] dtime [s]
+    /**
+     * 初期化
+     * @param[in] phi [rad]
+     * @param[in] theta [rad]
+     * @param[in] psi [rad]
+     * @param[in] dtime [s] 刻み値
+     */
     pub fn initialize(&mut self, phi:f64, theta:f64, psi:f64, dtime:f64 ) {
         let cos_psi2 = ( psi / 2.0 ).cos();
         let sin_psi2 = ( psi / 2.0 ).sin();
@@ -89,12 +92,17 @@ impl Quartenion {
         self.mat[[2,2]] = e0e0 - e1e1 - e2e2 + e3e3;   // n3
     }
 
-    // quartenionの更新
-    // param@[in] p, q, r [rad/s]
+    /**
+     * quartenionの更新
+     * @param[in] p [rad/s]
+     * @param[in] q [rad/s]
+     * @param[in] r [rad/s]
+     */
     pub fn update_quartenion(&mut self, p:f64, q:f64, r:f64) {
         let kq:f64 = 0.0;
         let keps:f64 = kq * (1.0 - (self.e0.val()*self.e0.val() + self.e1.val()*self.e1.val() + self.e2.val()*self.e2.val() + self.e3.val()*self.e3.val()));
 
+        // 積分入力値の計算
         let e0_dot:f64 = -(self.e1.val()*p + self.e2.val()*q + self.e3.val()*r ) / 2.0 + keps*self.e0.val();
         let e1_dot:f64 = (self.e0.val()*p - self.e3.val()*q + self.e2.val()*r ) / 2.0 + keps*self.e1.val();
         let e2_dot:f64 = (self.e3.val()*p + self.e0.val()*q - self.e1.val()*r ) / 2.0 + keps*self.e2.val();
@@ -116,10 +124,11 @@ impl Quartenion {
         self.update_euler_matrix();
     }
 
-
-    // オイラー変換
-    // param@ org[in] Point型　位置ベクトル
-    // return Point型　変換結果
+    /**
+     * オイラー変換
+     * @param[in] org  Point型　変換したい位置
+     * @return Point型　変換結果
+     */
     pub fn euler_trans(&self, org: &core::point::Point ) -> core::point::Point {
         let vec = arr1(&[org.x(), org.y(), org.z()]);
         let vec_r = vec.dot(&self.mat);
@@ -132,9 +141,11 @@ impl Quartenion {
         return dest;
     }
 
-    // 逆オイラー変換
-    // param@ org[in] Point型　位置ベクトル
-    // return Point型　変換結果
+    /**
+     * 逆オイラー変換
+     * @param[in] org  Point型　変換したい位置
+     * @return Point型　変換結果
+     */
     pub fn euler_trans_inv(&self, org: &core::point::Point ) -> core::point::Point {
         let vec = arr1(&[org.x(), org.y(), org.z()]);
         let vec_r = self.mat.dot(&vec);

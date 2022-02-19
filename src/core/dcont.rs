@@ -18,7 +18,11 @@ impl Dcont {
         Dcont{ idx: Vec::new(), val: Vec::new()}
     }
 
-    // containerへデータの読込
+    /**
+     * containerへデータの読込
+     * @param[in] file_name 2次元テーブル（csv）ファイル名
+     * @return 読み込み結果
+     */
     pub fn read(&mut self, file_name :&str) -> Result<(), Box<dyn Error>>{
         println!("in Dcont.read, {}", file_name);
 
@@ -43,7 +47,11 @@ impl Dcont {
         Ok(())
     }
 
-    // 補間
+    /**
+     * 補間
+     * @param[in] val 引数
+     * @return 補間結果
+     */
     pub fn get_value(&self, val: f64) -> f64 {
 
         if val <= self.idx[0] {

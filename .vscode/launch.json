@@ -19,8 +19,7 @@
                     "kind": "bin"
                 }
             },
-            "args": ["1",
-                "/Users/maedahiroyuki/ProgWork/Rust/my_engine/src/data.csv"],
+            "args": [],
             "cwd": "${workspaceFolder}"
         },
         {

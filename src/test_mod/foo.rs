@@ -2,7 +2,7 @@
 use super::super::core;
 use super::super::model;
 
-// Modelのtraitの参照に必要
+// trait Modelの参照に必要
 use crate::model::basemodel::Model;
 
 pub fn foo_func1() {
@@ -82,5 +82,11 @@ pub fn quart_test() {
         m2.print_own();
         println!("{}, {} !", m2.base.id, m2.base.name);
 
+        println!("##### LandModelのテスト");
+        let mut m3 = model::land::LandModel::new(3, "Cat");
+        println!("{}, {} !", m3.base.id, m3.base.name);
+        m3.base.set_id(42);
+        println!("{}, {} !", m3.base.id, m3.base.name);
+        m3.print_own();
         
     }

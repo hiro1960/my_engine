@@ -1,6 +1,8 @@
 // modelのbase型
 use super::super::core;
 
+use super::air;
+
 pub struct BaseModel {
     // とりあえずテスト中はpub宣言しておく
     pub id: i32,
@@ -10,7 +12,7 @@ pub struct BaseModel {
 }
 
 impl BaseModel {
-    pub fn new(num:i32, sss: &str) -> BaseModel {
+    pub fn new(num:i32, sss:&str) -> BaseModel {
         BaseModel{
             id: num,
             name: sss.to_string(),
@@ -28,3 +30,14 @@ impl BaseModel {
     }
 
 }
+
+pub trait Model {
+    fn print_own(&self);
+}
+
+// impl Model for air::AirModel {
+//     fn print_own(&self) {
+//         println!("in AirModel");
+//     }
+
+// }

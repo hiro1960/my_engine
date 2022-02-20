@@ -2,6 +2,9 @@
 use super::super::core;
 use super::super::model;
 
+// Modelのtraitの参照に必要
+use crate::model::basemodel::Model;
+
 pub fn foo_func1() {
     println!("Foo 1!");
 }
@@ -71,5 +74,13 @@ pub fn quart_test() {
         m1.pos.set_y(2.0);
         m1.pos.set_z(3.0);
         m1.pos.print_val();
+
+        println!("##### AirModelのテスト");
+        let mut m2 = model::air::AirModel::new(2, "Swallow");
+        println!("{}, {} !", m2.base.id, m2.base.name);
+        m2.base.set_id(34);
+        m2.print_own();
+        println!("{}, {} !", m2.base.id, m2.base.name);
+
         
     }

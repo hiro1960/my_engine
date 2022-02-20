@@ -1,5 +1,6 @@
 // 別ディレクトリに定義してあるcoreモジュールを使うことを宣言
 use super::super::core;
+use super::super::model;
 
 pub fn foo_func1() {
     println!("Foo 1!");
@@ -53,4 +54,22 @@ pub fn quart_test() {
         println!(" inv result ");
         dest_pt.print_val();
 
+    }
+
+    pub fn model_test() {
+        // BaseModelのテスト
+        println!("### BaseModelのテスト");
+        
+        let mut m1 = model::basemodel::BaseModel::new(1, "Tank");
+        println!("{}, {} !", m1.id, m1.name);
+        m1.set_id(21);
+        m1.set_name("Ships");
+        println!("{}, {} !", m1.id, m1.name);
+        m1.name = m1.name + "Yamato";
+        println!("{}, {} !", m1.id, m1.name);
+        m1.pos.set_x(1.0);
+        m1.pos.set_y(2.0);
+        m1.pos.set_z(3.0);
+        m1.pos.print_val();
+        
     }

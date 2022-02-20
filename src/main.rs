@@ -1,5 +1,6 @@
 mod test_mod;
 mod core;
+mod model;  // 本ファイルでは直接modelを参照しないが、ここで宣言しておかないとtest_mod内で使うときに見つからないと怒られる
 
 use std::process;
 
@@ -77,9 +78,6 @@ fn main() {
     // Quartenionのテスト
     test_mod::foo::quart_test();
 
-    // PI1はf64型
-    let psi = std::f64::consts::PI;
-    // let psi2 = psi / 2.0;
-    println!("cos = {}", psi.cos());
-
+    // BaseModelのテスト
+    test_mod::foo::model_test();
 }

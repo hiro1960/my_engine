@@ -79,7 +79,7 @@ pub fn quart_test() {
         let mut m2 = model::air::AirModel::new(2, "Swallow");
         println!("{}, {} !", m2.base.id, m2.base.name);
         m2.base.set_id(34);
-        m2.print_own();
+        m2.print_own(); // traitで定義した共通関数
         println!("{}, {} !", m2.base.id, m2.base.name);
 
         println!("##### LandModelのテスト");
@@ -87,6 +87,6 @@ pub fn quart_test() {
         println!("{}, {} !", m3.base.id, m3.base.name);
         m3.base.set_id(42);
         println!("{}, {} !", m3.base.id, m3.base.name);
-        m3.print_own();
+        m3.print_own(); // traitで定義した共通関数
         
     }

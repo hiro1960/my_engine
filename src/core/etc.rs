@@ -96,4 +96,14 @@ impl Integrator1 {
     // returnと書かなくてもOK
     outd
   }
+
+}
+
+/**
+ * "data"を返す（#define代わり）
+ * 　global変数を定義できない（不可能ではないが面倒くさい）ので、その代わりの関数を定義する
+ */
+pub fn data_dir() -> String {
+  // ディレクトリの定義
+  "data".to_string()
 }

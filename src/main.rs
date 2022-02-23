@@ -3,6 +3,7 @@ mod core;
 mod model;  // 本ファイルでは直接modelを参照しないが、ここで宣言しておかないとtest_mod内で使うときに見つからないと怒られる
 
 use std::process;
+use std::env;
 
 fn main() {
     println!("Hello, world!");
@@ -13,8 +14,10 @@ fn main() {
     test_mod::bar::bar_func();
 
     // csv読込
-    let filename = "data.csv";
-    if let Err(err) = test_mod::csv_read::csv_read(filename) {
+    let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();
+    println!("PROJECT_DATA = {}", project_data);
+    let filename = project_data + "/data.csv";  // project_dataのlifeは、filenameにmoveしてしまう事に注意
+    if let Err(err) = test_mod::csv_read::csv_read(&filename) {
         println!("error runninng read: {}", err);
         process::exit(-1);
     }
@@ -50,7 +53,7 @@ fn main() {
     
     // let filename = &String::from("./data.csv");
     // let filename = "data.csv";   // ２重定義に見えるが、Rustではlifeの考え方があるので、これで構わない
-    if let Err(err) = vv.read(filename) {
+    if let Err(err) = vv.read(&filename) {
         println!("error runninng read: {}", err);
         process::exit(-1);
     }
@@ -61,7 +64,9 @@ fn main() {
     println!("hokan = {}, {}", val, vv.get_value(val));
 
     let mut vw = core::tcont::Tcont::new();
-    let filename_t = "dataT.csv";
+    let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();
+    let filename_t = &(project_data + "/dataT.csv");
+    // let filename_t = "dataT.csv";
     if let Err(err) = vw.read(filename_t) {
         println!("error runninng readT: {}", err);
         process::exit(-1);

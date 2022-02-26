@@ -36,6 +36,8 @@ impl Env {
     /**
      * 自然環境の定数の初期化
      * $PROJECT_TOP/data以下の、filenameのファイルを読み込む
+     * 
+     * @param[in] filename 定数のファイル名（full-path）
      */
     pub fn set_up(&mut self, filename: &str) {
         // jsonを読み込むデータ型
@@ -43,12 +45,13 @@ impl Env {
         //     envs: HashMap<String, String>,
         // }
 
-        let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();
-        let env_file = project_data + "/" + filename;
-
         // let file = File::open(env_file).expect("environment file not exist");   // env_fileのlifeは、File::open()に持っていかれるのに注意
         // let reader = BufReader::new(file);
         // let deserialized: Envs = serde_json::from_reader(reader).unwrap();
+        // 構造体で読み込む方法は定型のフォーマットに使う。任意の形式には使えない。
+
+        let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();
+        let env_file = project_data + "/" + filename;
 
         let contents = fs::read_to_string(env_file).unwrap();
         let vv: Value = serde_json::from_str(&contents).unwrap();
@@ -59,16 +62,12 @@ impl Env {
 
         let vs = &vv["StaticPressure"];
         // let vs = vv.get("StaticPressure");
-        // let csvfile: String = vs.to_string().parse().unwrap();  //NG
-        let csvfile = vs.as_str().unwrap();
+        // let csvfile: String = vs.to_string().parse().unwrap();  //NG　文字列の先頭、末尾に「"」が付いてしまう。
+        let csvfile = vs.as_str().unwrap(); // &str型になる
 
-        // println!("in Env, StaticPressure = {}", vs);
         println!("in Env, StaticPressure = {}", csvfile);
 
         let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();
-        let name = "static.csv";
-        println!("in Env, StaticPressure = {}", name);
-        // let static_file = project_data + "/" + name;
         let static_file = project_data + "/" + csvfile;
         self.static_pressure.read(&static_file);
 

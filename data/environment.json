@@ -1,5 +1,9 @@
 {
     "radius": 6371012.0,
-    "StaticPressure": "static.csv"
+    "G": 6.672e-11,
+    "GM": 3.986005e+14,
+    "SeaLevelGravity": 9.8065,
+    "StaticPressure": "static.csv",
+    "SoundVelocity": "soundVel.csv"
 
 }

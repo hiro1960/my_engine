@@ -88,7 +88,7 @@ impl Env {
         let vs = &vv["StaticPressure"];
         // let vs = vv.get("StaticPressure");
         // let csvfile: String = vs.to_string().parse().unwrap();  //NG　文字列の先頭、末尾に「"」が付いてしまう。
-        let csvfile = vs.as_str().expect("in Env::set_up(), StaticPressure expext file-name!"); // &str型になる
+        let csvfile = vs.as_str().expect("in Env::set_up(), StaticPressure expect file-name!"); // &str型になる
 
         println!("in Env, StaticPressure = {}", csvfile);
 
@@ -98,7 +98,7 @@ impl Env {
 
         // 音速
         let vs = &vv["SoundVelocity"];
-        let csvfile = vs.as_str().expect("in Env::set_up(), SoundVelocity expext file-name!"); // &str型になる
+        let csvfile = vs.as_str().expect("in Env::set_up(), SoundVelocity expect file-name!"); // &str型になる
         println!("in Env, SoundVelocity = {}", csvfile);
         let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();
         let csv_file = project_data + "/" + csvfile;

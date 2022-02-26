@@ -12,15 +12,23 @@ use super::super::core;
 
 pub struct Env {
     radius: f64,    // 地球半径[m]
+    g: f64,         // 万有引力定数[m3/kg/s2]
+    gm: f64,        // 地心重力定数[m3/s2]
+    sea_level_gravity: f64,     // 重力加速度[m/s2]
     static_pressure: core::dcont::Dcont,    // 静圧
+    sound_velocity: core::dcont::Dcont,     // 音速
 }
 
 impl Env {
     pub fn new() -> Env {
         // 初期値
         Env{
-            radius: 6371012.0,  // 地球半径[m]
-            static_pressure: core::dcont::Dcont::new(), // 静圧
+            radius: 6371012.0,
+            g: 6.672e-11,
+            gm: 3.986005e+14,
+            sea_level_gravity: 9.8065,
+            static_pressure: core::dcont::Dcont::new(),
+            sound_velocity: core::dcont::Dcont::new(),
         }
     }
 
@@ -56,20 +64,45 @@ impl Env {
         let contents = fs::read_to_string(env_file).unwrap();
         let vv: Value = serde_json::from_str(&contents).unwrap();
 
+        // 地球半径
         let vs = &vv["radius"];
-        self.radius = vs.to_string().parse().unwrap();
+        self.radius = vs.to_string().parse().expect("in Env::set_up(), radius expect floating-point!");
         println!("in Env, radius = {}", self.radius);
 
+        // 万有引力定数
+        let vs = &vv["G"];
+        self.g = vs.to_string().parse().expect("in Env::set_up(), G expect floating-point!");
+        println!("in Env, G = {}", self.g);
+
+        // 地心重力定数
+        let vs = &vv["GM"];
+        self.gm = vs.to_string().parse().expect("in Env::set_up(), GM expect floating-point!");
+        println!("in Env, GM = {}", self.gm);
+
+        // 重力加速度
+        let vs = &vv["SeaLevelGravity"];
+        self.sea_level_gravity = vs.to_string().parse().expect("in Env::set_up(), SeaLevelGravity expect floating-point!");
+        println!("in Env, SeaLevelGravity = {}", self.sea_level_gravity);
+        
+        // 静圧
         let vs = &vv["StaticPressure"];
         // let vs = vv.get("StaticPressure");
         // let csvfile: String = vs.to_string().parse().unwrap();  //NG　文字列の先頭、末尾に「"」が付いてしまう。
-        let csvfile = vs.as_str().unwrap(); // &str型になる
+        let csvfile = vs.as_str().expect("in Env::set_up(), StaticPressure expext file-name!"); // &str型になる
 
         println!("in Env, StaticPressure = {}", csvfile);
 
         let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();
         let static_file = project_data + "/" + csvfile;
-        self.static_pressure.read(&static_file);
+        self.static_pressure.read(&static_file).unwrap();
+
+        // 音速
+        let vs = &vv["SoundVelocity"];
+        let csvfile = vs.as_str().expect("in Env::set_up(), SoundVelocity expext file-name!"); // &str型になる
+        println!("in Env, SoundVelocity = {}", csvfile);
+        let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();
+        let csv_file = project_data + "/" + csvfile;
+        self.sound_velocity.read(&csv_file).unwrap();
 
 
 

@@ -1,3 +1,5 @@
+use std::fmt;
+
 pub fn point_func() {
     println!("point!");
 }
@@ -75,4 +77,13 @@ impl Point {
         println!("( {}, {}, {} )", self.pos[0], self.pos[1], self.pos[2]);
     }
 
+}
+
+/**
+ * 出力用関数の実装
+ */
+impl fmt::Display for Point {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "({}, {}, {})", self.pos[0], self.pos[1], self.pos[2])
+    }
 }

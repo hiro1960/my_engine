@@ -1,1 +1,3 @@
 Rustで簡単なframeworkを作ってみる
+
+環境変数：PROJECT_TOP　に、ここのPATHを入れておく必要がある

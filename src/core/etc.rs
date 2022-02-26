@@ -102,6 +102,9 @@ impl Integrator1 {
 /**
  * "data"を返す（#define代わり）
  * 　global変数を定義できない（不可能ではないが面倒くさい）ので、その代わりの関数を定義する
+ * 
+ *   project毎に変化する内容なので、本来別モジュールに定義した方がいい
+ *   i32等、basicな型を返すものは、const宣言するべき（String変換して返しているので、毎回メモリを確保するためconstできない）
  */
 pub fn data_dir() -> String {
   // ディレクトリの定義

@@ -14,7 +14,7 @@ fn main() {
     test_mod::bar::bar_func();
 
     // csv読込
-    let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();
+    let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir(); // &strを"+"して、Stringになることに注意
     println!("PROJECT_DATA = {}", project_data);
     let filename = project_data + "/data.csv";  // project_dataのlifeは、filenameにmoveしてしまう事に注意
     if let Err(err) = test_mod::csv_read::csv_read(&filename) {
@@ -51,7 +51,6 @@ fn main() {
     // vv.idx.push(1.0);
     // println!("{:?}", vv.idx);
     
-    // let filename = &String::from("./data.csv");
     // let filename = "data.csv";   // ２重定義に見えるが、Rustではlifeの考え方があるので、これで構わない
     if let Err(err) = vv.read(&filename) {
         println!("error runninng read: {}", err);
@@ -66,7 +65,6 @@ fn main() {
     let mut vw = core::tcont::Tcont::new();
     let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();
     let filename_t = &(project_data + "/dataT.csv");
-    // let filename_t = "dataT.csv";
     if let Err(err) = vw.read(filename_t) {
         println!("error runninng readT: {}", err);
         process::exit(-1);
@@ -85,4 +83,8 @@ fn main() {
 
     // BaseModelのテスト
     test_mod::foo::model_test();
+
+    // Envのテスト
+    test_mod::foo::env_test();
+    
 }

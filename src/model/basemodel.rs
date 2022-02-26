@@ -1,8 +1,6 @@
 // modelのbase型
 use super::super::core;
 
-use super::air;
-
 pub struct BaseModel {
     // とりあえずテスト中はpub宣言しておく
     pub id: i32,
@@ -29,15 +27,16 @@ impl BaseModel {
         self.name = sss.to_string();
     }
 
+    pub fn set_pos(&mut self, pt: &core::point::Point) {
+        // 位置の設定
+        self.pos.set_x( pt.x() );
+        self.pos.set_y( pt.y() );
+        self.pos.set_z( pt.z() );
+    }
+
 }
 
 pub trait Model {
     fn print_own(&self);
+    fn set_up(&mut self);
 }
-
-// impl Model for air::AirModel {
-//     fn print_own(&self) {
-//         println!("in AirModel");
-//     }
-
-// }

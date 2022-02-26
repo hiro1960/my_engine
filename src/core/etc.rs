@@ -105,6 +105,8 @@ impl Integrator1 {
  * 
  *   project毎に変化する内容なので、本来別モジュールに定義した方がいい
  *   i32等、basicな型を返すものは、const宣言するべき（String変換して返しているので、毎回メモリを確保するためconstできない）
+ * 
+ * @return "data"
  */
 pub fn data_dir() -> String {
   // ディレクトリの定義

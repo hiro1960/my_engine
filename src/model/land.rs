@@ -1,7 +1,6 @@
 // model land型
 use super::basemodel;
 
-
 pub struct LandModel {
     pub base: basemodel::BaseModel,
 }
@@ -17,6 +16,13 @@ impl LandModel {
 impl basemodel::Model for LandModel {
     fn print_own(&self) {
         println!("in LandModel");
+    }
+
+    /**
+     * 
+     */
+    fn set_up(&mut self) {
+
     }
 
 }

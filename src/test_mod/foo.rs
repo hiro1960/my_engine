@@ -80,7 +80,11 @@ pub fn model_test() {
     println!("{}, {} !", m2.base.id, m2.base.name);
     m2.base.set_id(34);
     m2.print_own(); // traitで定義した共通関数
-    println!("{}, {} !", m2.base.id, m2.base.name);
+    m2.set_up();
+    let pos = core::point::Point::new_pt( 1.0, 2.0, 3.0 );  // 仮の位置変数
+    m2.base.set_pos( &pos );
+    println!("{}, {} !", m2.base.id, m2.base.name );
+    m2.base.pos.print_val();
 
     println!("##### LandModelのテスト");
     let mut m3 = model::land::LandModel::new(3, "Cat");
@@ -88,6 +92,8 @@ pub fn model_test() {
     m3.base.set_id(42);
     println!("{}, {} !", m3.base.id, m3.base.name);
     m3.print_own(); // traitで定義した共通関数
+    m3.base.set_pos( &pos );
+    m3.base.pos.print_val();
     
 }
 

@@ -19,4 +19,12 @@ impl basemodel::Model for AirModel {
         println!("in AirModel");
     }
 
+    /**
+     * AirModelのset_up関数
+     */
+    fn set_up(&mut self) {
+        // idの設定
+        self.base.set_id(101);
+    }
+
 }

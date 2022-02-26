@@ -18,6 +18,19 @@ impl Point {
         Point { pos: [0.0; 3] }
     }
 
+    /**
+     * 初期値設定こみのnew
+     * 
+     * @param[in] x
+     * @param[in] y
+     * @param[in] z
+     * @return Point
+     */
+    pub fn new_pt(x:f64, y:f64, z:f64) -> Point {
+        // 引数を初期値にしてPointを生成
+        Point{ pos: [x, y, z] }
+    }
+
     // x座標に値をセット
     pub fn set_x(&mut self, val: f64) {
         self.pos[0] = val;

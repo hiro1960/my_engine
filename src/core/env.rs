@@ -45,7 +45,7 @@ impl Env {
      * 自然環境の定数の初期化
      * $PROJECT_TOP/data以下の、filenameのファイルを読み込む
      * 
-     * @param[in] filename 定数のファイル名（full-path）
+     * @param[in] filename 定数のファイル名（$PROJECT_TOP/data以下に存在）
      */
     pub fn set_up(&mut self, filename: &str) {
         // jsonを読み込むデータ型

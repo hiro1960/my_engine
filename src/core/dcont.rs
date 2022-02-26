@@ -1,6 +1,7 @@
 // 2変数補間オブジェクト
 use std::fs::File;
 use std::error::Error;
+use std::fmt;
 
 // 同じ位置のmoduleの参照にはuseを使用する
 use super::etc;
@@ -83,5 +84,19 @@ impl Dcont {
             return etc::hokan(val, self.idx[l-1], self.idx[l], self.val[l-1], self.val[l]);
         }
 
+    }
+}
+
+/**
+ * 出力用関数の実装
+ */
+impl fmt::Display for Dcont {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        // for i in 0..self.idx.len() {
+        //     write!(f, "({}, {})", self.idx[i], self.val[i])
+        // }
+
+        // とりあえずダミーの実装
+        write!(f, "")
     }
 }

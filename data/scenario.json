@@ -1,9 +1,12 @@
-[
+{
+    "SimCtrl":
     {
         "Category": "SimCtrl",
         "Count": 5,
         "DeltaTime": 0.1
     },
+
+    "Scenario":
     {
         "ID": 102,
         "Name": "Jeep",
@@ -20,6 +23,8 @@
         ],
         "Weight": 123.0
     },
+
+    "Sceanrio":
     {
         "ID": 103,
         "Name": "ROVER",
@@ -36,4 +41,4 @@
         ],
         "Mass": 210.0
     }
-]
+}

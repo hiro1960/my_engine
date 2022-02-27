@@ -109,7 +109,7 @@ pub fn env_test() {
 }
 
 pub fn simframe_test() {
-    let mut sim_db = simframe::simData::SimData::new();
+    let mut sim_db = simframe::sim_data::SimData::new();
     sim_db.time_set.set(10, 0.1);
 
     simframe::init::initialize(&mut sim_db);

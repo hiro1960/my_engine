@@ -1,4 +1,5 @@
 // シミュレーション・データの定義
+use super::super::core;
 
 /**
  * 時間管理データ
@@ -51,9 +52,9 @@ pub struct SimData {
     // 時間管理データ
     pub time_set: SimCtrl,
 
-    // TODO Envデータをここに持たせること
     // →処理に必要なデータを集めておく(Rustはグローバル変数を使わせてくれない)
-
+    // 環境データ
+    pub env: core::env::Env,
 
 
 }
@@ -66,8 +67,8 @@ impl SimData {
     pub fn new() -> SimData {
         // 時間管理データ
         SimData{ 
-            // time_set: SimCtrl::new()
-            time_set: SimCtrl{ count:0, delta_time:0.0}
+            time_set: SimCtrl{ count:0, delta_time:0.0},
+            env: core::env::Env::new()
         }
     }
 }

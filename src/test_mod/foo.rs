@@ -112,5 +112,7 @@ pub fn simframe_test() {
     let mut sim_db = simframe::simData::SimData::new();
     sim_db.time_set.set(10, 0.1);
 
+    simframe::init::initialize(&mut sim_db);
+
     println!("in simframe_test() {} {}", sim_db.time_set.count(), sim_db.time_set.delta_time());
 }

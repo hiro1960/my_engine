@@ -1,6 +1,7 @@
-// 別ディレクトリに定義してあるcoreモジュールを使うことを宣言
+// 別ディレクトリに定義してあるモジュールを使うことを宣言
 use super::super::core;
 use super::super::model;
+use super::super::simframe;
 
 // trait Modelの参照に必要
 use crate::model::basemodel::Model;
@@ -105,4 +106,11 @@ pub fn env_test() {
     println!("radius = {}", env.radius());
 
     env.set_up("environment.json");
+}
+
+pub fn simframe_test() {
+    let mut sim_db = simframe::simData::SimData::new();
+    sim_db.time_set.set(10, 0.1);
+
+    println!("in simframe_test() {} {}", sim_db.time_set.count(), sim_db.time_set.delta_time());
 }

@@ -20,6 +20,9 @@
                 }
             },
             "args": [],
+            "env":{
+                "PROJECT_TOP": "/home/hiro/Rust/my_engine"
+            },
             "cwd": "${workspaceFolder}"
         },
         {

@@ -1,6 +1,9 @@
+// 本プロジェクトが使うモジュールは全てここで参照すること
+// (ここで直接該当モジュールを使わなくても、ここで宣言しておかないと他のモジュール内で使うときに見つからないと怒られる)
 mod test_mod;
 mod core;
-mod model;  // 本ファイルでは直接modelを参照しないが、ここで宣言しておかないとtest_mod内で使うときに見つからないと怒られる
+mod model;
+mod simframe;
 
 use std::process;
 use std::env;
@@ -86,5 +89,16 @@ fn main() {
 
     // Envのテスト
     // test_mod::foo::env_test();
+
+
+    // simframeの実装準備
+    // シミュレーション・データの定義
+    test_mod::foo::simframe_test();
+
+    // initで、シミュレーション・データの塊を返す
+
+    // データの塊を引数にして渡し、RunSimを処理する
+
+    // シミュレーション・データ内には、結果の格納エリアも必要
     
 }

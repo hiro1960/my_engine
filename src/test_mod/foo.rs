@@ -64,7 +64,10 @@ pub fn model_test() {
     // BaseModelのテスト
     println!("### BaseModelのテスト");
     
-    let mut m1 = model::basemodel::BaseModel::new(1, "Tank");
+    // let mut m1 = model::basemodel::BaseModel::new(1, "Tank");
+    let mut m1 = model::basemodel::BaseModel::new();
+    m1.set_id(1);
+    m1.set_name("Tank");
     println!("{}, {} !", m1.id, m1.name);
     m1.set_id(21);
     m1.set_name("Ships");
@@ -77,7 +80,10 @@ pub fn model_test() {
     m1.pos.print_val();
 
     println!("##### AirModelのテスト");
-    let mut m2 = model::air::AirModel::new(2, "Swallow");
+    // let mut m2 = model::air::AirModel::new(2, "Swallow");
+    let mut m2 = model::air::AirModel::new();
+    m2.base.set_id(2);
+    m2.base.set_name("Swallow");
     println!("{}, {} !", m2.base.id, m2.base.name);
     m2.base.set_id(34);
     m2.print_own(); // traitで定義した共通関数
@@ -88,7 +94,10 @@ pub fn model_test() {
     // m2.base.pos.print_val();
 
     println!("##### LandModelのテスト");
-    let mut m3 = model::land::LandModel::new(3, "Cat");
+    // let mut m3 = model::land::LandModel::new(3, "Cat");
+    let mut m3 = model::land::LandModel::new();
+    m3.base.set_id(3);
+    m3.base.set_name("Cat");
     println!("{}, {} !", m3.base.id, m3.base.name);
     m3.base.set_id(42);
     m3.print_own(); // traitで定義した共通関数

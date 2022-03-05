@@ -1,6 +1,8 @@
 // 初期化モジュール
 use super::super::simframe;
 use super::super::core;
+use super::super::model;
+
 use std::env;
 use std::fs;
 use serde::{Serialize, Deserialize};
@@ -50,6 +52,31 @@ pub fn initialize(db: &mut simframe::sim_data::SimData) {
     let sce_str: String = vsc.to_string().parse().unwrap();
     let v3: Vec<ScenarioStr> = serde_json::from_str(&sce_str).unwrap();
 
-    println!("test {}", v3.len());
+    // println!("test {}", v3.len());
+
+    for i in 0..v3.len() {
+        // println!("id {}", v3[i].id);
+        // let mut data = simframe::sim_data::SimObject::new();
+        let mut data = model::basemodel::BaseModel::new();
+        // data.set( v3[i].id, &v3[i].name, &v3[i].category );
+        data.set_id(v3[i].id);
+        data.set_name(&v3[i].name);
+        data.set_category(&v3[i].category);
+
+        let pos: Vec<&str> = v3[i].pos.split(',').collect();
+
+        let x: f64 = pos[0].parse().unwrap();
+        let y: f64 = pos[1].parse().unwrap();
+        let z: f64 = pos[2].parse().unwrap();
+
+        let pt = core::point::Point::new_pt(x, y, z);
+        data.set_pos(&pt);
+        db.object_db.push(data);
+    }
+
+    // 読み込んだ結果の確認
+    for i in 0..db.object_db.len() {
+        println!("{} {} {}", db.object_db[i].id, db.object_db[i].name, db.object_db[i].category );
+    }
 
 }

@@ -3,28 +3,34 @@ use super::super::core;
 
 pub struct BaseModel {
     // とりあえずテスト中はpub宣言しておく
-    pub id: i32,
+    pub id: i64,
     pub name: String,
+    pub category: String,
     pub pos: core::point::Point,
     pub vel: core::point::Point,
 }
 
 impl BaseModel {
-    pub fn new(num:i32, sss:&str) -> BaseModel {
+    pub fn new() -> BaseModel {
         BaseModel{
-            id: num,
-            name: sss.to_string(),
+            id: 0,
+            name: String::new(),
+            category: String::new(),
             pos: core::point::Point::new(),
             vel: core::point::Point::new(),
         }
     }
 
-    pub fn set_id(&mut self, num: i32) {
+    pub fn set_id(&mut self, num: i64) {
         self.id = num;
     }
 
     pub fn set_name(&mut self, sss: &str) {
         self.name = sss.to_string();
+    }
+
+    pub fn set_category(&mut self, sss: &str) {
+        self.category = sss.to_string();
     }
 
     pub fn set_pos(&mut self, pt: &core::point::Point) {

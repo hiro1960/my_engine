@@ -6,9 +6,10 @@ pub struct AirModel {
 }
 
 impl AirModel {
-    pub fn new(num:i32, sss:&str) -> AirModel {
+    pub fn new() -> AirModel {
         AirModel{
-            base: basemodel::BaseModel::new(num, sss),
+            // base: basemodel::BaseModel::new(num, sss),
+            base: basemodel::BaseModel::new(),
         }
     }
     

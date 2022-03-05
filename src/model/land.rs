@@ -6,9 +6,10 @@ pub struct LandModel {
 }
 
 impl LandModel {
-    pub fn new(num:i32, sss:&str) -> LandModel {
+    pub fn new() -> LandModel {
         LandModel{
-            base: basemodel::BaseModel::new(num, sss),
+            // base: basemodel::BaseModel::new(num, sss),
+            base: basemodel::BaseModel::new(),
         }
     }
 }

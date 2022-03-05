@@ -1,44 +1,45 @@
 {
     "SimCtrl":
     {
-        "Category": "SimCtrl",
-        "Count": 5,
-        "DeltaTime": 0.1
+        "Count": 6,
+        "DeltaTime": 0.2
     },
 
     "Scenario":
-    {
-        "ID": 102,
-        "Name": "Jeep",
-        "Category": "vehicle",
-        "Pos": [
-            0.0,
-            1.0,
-            2.0
-        ],
-        "Vel": [
-            3.0,
-            4.0,
-            5.0
-        ],
-        "Weight": 123.0
-    },
-
-    "Sceanrio":
-    {
-        "ID": 103,
-        "Name": "ROVER",
-        "Category": "air",
-        "Pos": [
-            0.0,
-            2.0,
-            1.0
-        ],
-        "Vel": [
-            3.0,
-            5.0,
-            4.0
-        ],
-        "Mass": 210.0
-    }
+    [
+        {
+            "ID": 102,
+            "Name": "Jeep",
+            "Category": "vehicle",
+            "Pos": [
+                0.0,
+                1.0,
+                2.0
+            ],
+            "Vel": [
+                3.0,
+                4.0,
+                5.0
+            ],
+            "Weight": 123.0
+        },
+    
+        {
+            "ID": 103,
+            "Name": "ROVER",
+            "Category": "air",
+            "Pos": [
+                0.0,
+                2.0,
+                1.0
+            ],
+            "Vel": [
+                3.0,
+                5.0,
+                4.0
+            ],
+            "Mass": 210.0
+        }
+    
+    ]
 }

@@ -3,9 +3,18 @@ use super::super::simframe;
 use super::super::core;
 use std::env;
 use std::fs;
+use serde::{Serialize, Deserialize};
 use serde_json::{Result, Value};
 
-// SimData型の初期化関数
+#[derive(Serialize, Deserialize, Debug)]
+struct ScenarioStr {
+    id: i64,
+    name: String,
+    category: String,
+    // pos: Vec[f64]    // 複雑な構造はDeserializeできない
+    pos: String
+}
+
 /**
  * SimData型の初期化関数
  * 
@@ -34,7 +43,13 @@ pub fn initialize(db: &mut simframe::sim_data::SimData) {
     let dt: f64 = dt_value.to_string().parse().unwrap();
     db.time_set.set(ct, dt);
 
+    // Scenario シナリオ部読み込み
+    let vsc = &vv["Scenario"];
+    println!("Scenario, {}", vsc);
+    // let v3: String = vsc.to_string().parse().unwrap();
+    let sce_str: String = vsc.to_string().parse().unwrap();
+    let v3: Vec<ScenarioStr> = serde_json::from_str(&sce_str).unwrap();
 
-    println!("test");
+    println!("test {}", v3.len());
 
 }

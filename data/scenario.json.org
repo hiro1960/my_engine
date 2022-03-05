@@ -1,0 +1,45 @@
+{
+    "SimCtrl":
+    {
+        "Count": 6,
+        "DeltaTime": 0.2
+    },
+
+    "Scenario":
+    [
+        {
+            "id": 102,
+            "name": "Jeep",
+            "category": "vehicle",
+            "pos": [
+                0.0,
+                1.0,
+                2.0
+            ],
+            "vel": [
+                3.0,
+                4.0,
+                5.0
+            ],
+            "weight": 123.0
+        },
+    
+        {
+            "id": 103,
+            "name": "ROVER",
+            "category": "air",
+            "pos": [
+                0.0,
+                2.0,
+                1.0
+            ],
+            "vel": [
+                3.0,
+                5.0,
+                4.0
+            ],
+            "mass": 210.0
+        }
+    
+    ]
+}

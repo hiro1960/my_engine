@@ -44,6 +44,31 @@ impl SimCtrl {
 
 }
 
+/**
+ * オブジェクト・データ
+ */
+pub struct SimObject {
+    id: i64,
+    name: String,
+    category: String
+}
+
+/**
+ * オブジェクト・データ　操作関数
+ */
+impl SimObject {
+    /**
+     * データ設定
+     * @param[in] id
+     * @param[in] name
+     * @param[in] category
+     */
+    pub fn set(&mut self, id:i64, name:&str, category:&str) {
+        self.id = id;
+        self.name = name.to_string();
+        self.category = category.to_string();
+    }
+}
 
 /**
  * シミュレーション・データ本体
@@ -56,6 +81,8 @@ pub struct SimData {
     // 環境データ
     pub env: core::env::Env,
 
+    // オブジェクト・データ
+    pub object_db: Vec<SimObject>
 
 }
 
@@ -68,7 +95,8 @@ impl SimData {
         // 時間管理データ
         SimData{ 
             time_set: SimCtrl{ count:0, delta_time:0.0},
-            env: core::env::Env::new()
+            env: core::env::Env::new(),
+            object_db: Vec::new()
         }
     }
 }

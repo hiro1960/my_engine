@@ -8,6 +8,7 @@ pub fn point_func() {
     位置、速度の３次元ベクトルを表すのに使う
 */
 // #[derive(Default)]
+#[derive(Debug, Copy, Clone)]
 pub struct Point {
     pos : [f64; 3]  // 3次元の位置[m]
 }

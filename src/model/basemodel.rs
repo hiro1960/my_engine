@@ -3,7 +3,7 @@ use super::super::core;
 
 pub struct BaseModel {
     // とりあえずテスト中はpub宣言しておく
-    pub id: i64,
+    id: i64,
     pub name: String,
     pub category: String,
     pub pos: core::point::Point,
@@ -21,6 +21,10 @@ impl BaseModel {
         }
     }
 
+    pub fn id(&self) -> i64 {
+        self.id
+    }
+
     pub fn set_id(&mut self, num: i64) {
         self.id = num;
     }
@@ -32,6 +36,33 @@ impl BaseModel {
     pub fn set_category(&mut self, sss: &str) {
         self.category = sss.to_string();
     }
+
+    /**
+     * 位置の取得
+     * 
+     * @return pos Point型
+     */
+    // Copy traitが必要らしく、現状の実装ではうまくいかない
+    // pub fn pos(&self) -> core::point::Point {
+    //     let mut pt = core::point::Point::new();
+    //     pt.set_x(self.pos().x());
+    //     pt.set_y(self.pos().y());
+    //     pt.set_z(self.pos().z());
+    //     return pt;
+    // }
+
+    /**
+     * 速度の取得
+     * 
+     * @return vel Point型
+     */
+    // pub fn vel(&self) -> core::point::Point {
+    //     let mut pt = core::point::Point::new();
+    //     pt.set_x(self.vel().x());
+    //     pt.set_y(self.vel().y());
+    //     pt.set_z(self.vel().z());
+    //     return pt;
+    // }
 
     /**
      * 位置の設定
@@ -60,4 +91,6 @@ impl BaseModel {
 pub trait Model {
     fn print_own(&self);
     fn set_up(&mut self);
+
+    fn update(&self, data: &mut BaseModel, env:&core::env::Env, dt: f64);
 }

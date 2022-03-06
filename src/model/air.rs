@@ -1,5 +1,6 @@
 // model air型
 use super::basemodel;
+use super::super::core;
 
 pub struct AirModel {
     pub base: basemodel::BaseModel,
@@ -26,6 +27,16 @@ impl basemodel::Model for AirModel {
     fn set_up(&mut self) {
         // idの設定
         self.base.set_id(101);
+    }
+
+    /**
+     * オブジェクトの更新処理
+     * 
+     * @param[in/out] data  オブジェクト・データ
+     * @param[in] env   環境データ
+     */
+    fn update(&self, data: &mut basemodel::BaseModel, env:&core::env::Env, dt:f64) {
+
     }
 
 }

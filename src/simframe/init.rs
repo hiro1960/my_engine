@@ -24,7 +24,7 @@ struct ScenarioStr {
  * @param[in/out] db シミュレーション・データ
  */
 pub fn initialize(db: &mut simframe::sim_data::SimData) {
-    // 環境データの初期化
+        // 環境データの初期化
     db.env.set_up("environment.json");
 
     let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir();

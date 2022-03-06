@@ -123,5 +123,12 @@ pub fn simframe_test() {
 
     simframe::init::initialize(&mut sim_db);
 
-    println!("in simframe_test() {} {}", sim_db.time_set.count(), sim_db.time_set.delta_time());
+    // 読み込んだ結果の確認（initialize()内でsim_dbにデータを設定している）
+    println!("in simframe_test(), SimCtrl {} {}", sim_db.time_set.count(), sim_db.time_set.delta_time());
+
+    for i in 0..sim_db.object_db.len() {
+        println!("{} {} {}", sim_db.object_db[i].id, sim_db.object_db[i].name, sim_db.object_db[i].category );
+        println!("{}, {}", sim_db.object_db[i].pos, sim_db.object_db[i].vel );
+    }
+    
 }

@@ -33,11 +33,26 @@ impl BaseModel {
         self.category = sss.to_string();
     }
 
+    /**
+     * 位置の設定
+     * @param[in] pt Point型
+     */
     pub fn set_pos(&mut self, pt: &core::point::Point) {
         // 位置の設定
         self.pos.set_x( pt.x() );
         self.pos.set_y( pt.y() );
         self.pos.set_z( pt.z() );
+    }
+
+    /**
+     * 速度の設定
+     * @param[in] pt Point型
+     */
+    pub fn set_vel(&mut self, pt: &core::point::Point) {
+        // 速度の設定
+        self.vel.set_x( pt.x() );
+        self.vel.set_y( pt.y() );
+        self.vel.set_z( pt.z() );
     }
 
 }

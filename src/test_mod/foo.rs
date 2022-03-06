@@ -68,29 +68,28 @@ pub fn model_test() {
     let mut m1 = model::basemodel::BaseModel::new();
     m1.set_id(1);
     m1.set_name("Tank");
-    println!("{}, {} !", m1.id(), m1.name);
+    println!("{}, {} !", m1.id(), m1.name());
     m1.set_id(21);
     m1.set_name("Ships");
-    println!("{}, {} !", m1.id(), m1.name);
-    m1.name = m1.name + "Yamato";
-    println!("{}, {} !", m1.id(), m1.name);
-    m1.pos.set_x(1.0);
-    m1.pos.set_y(2.0);
-    m1.pos.set_z(3.0);
-    m1.pos.print_val();
+    println!("{}, {} !", m1.id(), m1.name());
+
+    m1.pos().set_x(1.0);    // Copyされたposに対する処理なので、m1.posには値が反映されにのに注意
+    m1.pos().set_y(2.0);
+    m1.pos().set_z(3.0);
+    m1.pos().print_val();
 
     println!("##### AirModelのテスト");
     // let mut m2 = model::air::AirModel::new(2, "Swallow");
     let mut m2 = model::air::AirModel::new();
     m2.base.set_id(2);
     m2.base.set_name("Swallow");
-    println!("{}, {} !", m2.base.id(), m2.base.name);
+    println!("{}, {} !", m2.base.id(), m2.base.name());
     m2.base.set_id(34);
     m2.print_own(); // traitで定義した共通関数
     m2.set_up();
     let pos = core::point::Point::new_pt( 1.0, 2.0, 3.0 );  // 仮の位置変数
     m2.base.set_pos( &pos );
-    println!("{}, {}, {} !", m2.base.id(), m2.base.name, m2.base.pos );
+    println!("{}, {}, {} !", m2.base.id(), m2.base.name(), m2.base.pos() );
     // m2.base.pos.print_val();
 
     println!("##### LandModelのテスト");
@@ -98,11 +97,11 @@ pub fn model_test() {
     let mut m3 = model::land::LandModel::new();
     m3.base.set_id(3);
     m3.base.set_name("Cat");
-    println!("{}, {} !", m3.base.id(), m3.base.name);
+    println!("{}, {} !", m3.base.id(), m3.base.name());
     m3.base.set_id(42);
     m3.print_own(); // traitで定義した共通関数
     m3.base.set_pos( &pos );
-    println!("{}, {}, {} !", m3.base.id(), m3.base.name, m3.base.pos );
+    println!("{}, {}, {} !", m3.base.id(), m3.base.name(), m3.base.pos() );
     // m3.base.pos.print_val();
     
 }
@@ -127,8 +126,8 @@ pub fn simframe_test() {
     println!("in simframe_test(), SimCtrl {} {}", sim_db.time_set.count(), sim_db.time_set.delta_time());
 
     for i in 0..sim_db.object_db.len() {
-        println!("{} {} {}", sim_db.object_db[i].id(), sim_db.object_db[i].name, sim_db.object_db[i].category );
-        println!("{}, {}", sim_db.object_db[i].pos, sim_db.object_db[i].vel );
+        println!("{} {} {}", sim_db.object_db[i].id(), sim_db.object_db[i].name(), sim_db.object_db[i].category() );
+        println!("{}, {}", sim_db.object_db[i].pos(), sim_db.object_db[i].vel() );
     }
     
     simframe::update::update(&mut sim_db);

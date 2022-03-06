@@ -4,10 +4,10 @@ use super::super::core;
 pub struct BaseModel {
     // とりあえずテスト中はpub宣言しておく
     id: i64,
-    pub name: String,
-    pub category: String,
-    pub pos: core::point::Point,
-    pub vel: core::point::Point,
+    name: String,
+    category: String,
+    pos: core::point::Point,
+    vel: core::point::Point,
 }
 
 impl BaseModel {
@@ -23,6 +23,14 @@ impl BaseModel {
 
     pub fn id(&self) -> i64 {
         self.id
+    }
+
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    pub fn category(&self) -> &str {
+        &self.category
     }
 
     pub fn set_id(&mut self, num: i64) {
@@ -42,27 +50,19 @@ impl BaseModel {
      * 
      * @return pos Point型
      */
-    // Copy traitが必要らしく、現状の実装ではうまくいかない
-    // pub fn pos(&self) -> core::point::Point {
-    //     let mut pt = core::point::Point::new();
-    //     pt.set_x(self.pos().x());
-    //     pt.set_y(self.pos().y());
-    //     pt.set_z(self.pos().z());
-    //     return pt;
-    // }
+    pub fn pos(&self) -> core::point::Point {
+        // Point型のCopy traitがここで動く(#[derive(Debug, Copy, Clone)]定義をしてある)
+        self.pos
+    }
 
     /**
      * 速度の取得
      * 
      * @return vel Point型
      */
-    // pub fn vel(&self) -> core::point::Point {
-    //     let mut pt = core::point::Point::new();
-    //     pt.set_x(self.vel().x());
-    //     pt.set_y(self.vel().y());
-    //     pt.set_z(self.vel().z());
-    //     return pt;
-    // }
+    pub fn vel(&self) -> core::point::Point {
+        self.vel
+    }
 
     /**
      * 位置の設定

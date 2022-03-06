@@ -34,8 +34,8 @@ impl basemodel::Model for LandModel {
      * @param[in] env   環境データ
      */
     fn update(&self, data: &mut basemodel::BaseModel, env:&core::env::Env, dt:f64) {
-        let mut pos = data.pos;
-        let vel = data.vel;
+        let mut pos = data.pos();   // data.posはCopyされるのに注意
+        let vel = data.vel();
 
         pos.set_x(pos.x() + vel.x() * dt);
         pos.set_y(pos.y() + vel.y() * dt);

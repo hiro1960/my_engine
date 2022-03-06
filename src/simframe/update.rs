@@ -23,7 +23,7 @@ pub fn update(db: &mut simframe::sim_data::SimData) {
             // 将来的には、landとairを使い分ける
             land.update(&mut db.object_db[n], &db.env, delta_time);
 
-            println!("{} {}", db.object_db[n].id(), db.object_db[n].pos);
+            println!("{} {}", db.object_db[n].id(), db.object_db[n].pos());
         }
     }
 

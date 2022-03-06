@@ -79,13 +79,13 @@ fn main() {
     println!("Thokan = {},{}, {}", val1, val2, vw.get_value(val1, val2));
 
     // 積分のテスト
-    test_mod::foo::integ_test();
+    // test_mod::foo::integ_test();
 
     // Quartenionのテスト
-    test_mod::foo::quart_test();
+    // test_mod::foo::quart_test();
 
     // BaseModelのテスト
-    test_mod::foo::model_test();
+    // test_mod::foo::model_test();
 
     // Envのテスト
     // test_mod::foo::env_test();

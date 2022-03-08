@@ -20,8 +20,14 @@ pub fn update(db: &mut simframe::sim_data::SimData) {
     for i in 0..ct {
         println!("in update, {}", i);
         for n in 0..num {
-            // 将来的には、landとairを使い分ける
-            land.update(&mut db.object_db[n], &db.env, delta_time);
+            match db.object_db[n].category() {
+                // Match "Air"
+                "Air" => air.update(&mut db.object_db[n], &db.env, delta_time),
+                // Match "Land"
+                "Land" => land.update(&mut db.object_db[n], &db.env, delta_time),
+                // Handle the rest of case
+                _=> println!("## no category {} ##", db.object_db[n].category()),
+            }
 
             println!("{} {}", db.object_db[n].id(), db.object_db[n].pos());
         }

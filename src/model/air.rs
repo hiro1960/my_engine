@@ -36,6 +36,8 @@ impl basemodel::Model for AirModel {
      * @param[in] env   環境データ
      */
     fn update(&self, data: &mut basemodel::BaseModel, env:&core::env::Env, dt:f64) {
+        // DEBUG
+        println!("### in AirModel::update()");
 
     }
 

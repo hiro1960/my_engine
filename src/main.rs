@@ -12,9 +12,9 @@ fn main() {
     println!("Hello, world!");
 
     // モジュールの実装テスト
-    test_mod::foo::foo_func1();
-    test_mod::foo::foo_func2();
-    test_mod::bar::bar_func();
+    // test_mod::foo::foo_func1();
+    // test_mod::foo::foo_func2();
+    // test_mod::bar::bar_func();
 
     // csv読込
     let project_data = env::var("PROJECT_TOP").expect("PROJECT_TOP is not defined") + "/" + &core::etc::data_dir(); // &strを"+"して、Stringになることに注意
@@ -26,11 +26,14 @@ fn main() {
     }
 
     // Point構造体のテスト
-    core::point::point_func();
+    // core::point::point_func();
 
     // let mut pp = core::point::Point { pos: [0.0, 0.0, 0.0] };
     // let mut pp = core::point::Point { pos: [0.0; 3] };
     // let mut pp : core::point::Point = Default::default();    // Default deriveを使う場合
+
+
+    /*
     let mut pp = core::point::Point::new();
     let mut pp2nd = core::point::Point::new();
 
@@ -41,7 +44,7 @@ fn main() {
 
     pp.print_val();
     pp2nd.print_val();
-    /*
+    
     let max_n = 2;
     for n in 0..=max_n {
         println!("{}", pp.pos[ n ]);

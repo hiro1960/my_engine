@@ -74,6 +74,7 @@ impl Point {
     }
 
     // DEBUG用
+    // fmt::Displayの実装を作成したので、もう不要
     pub fn print_val(&self) {
         println!("( {}, {}, {} )", self.pos[0], self.pos[1], self.pos[2]);
     }

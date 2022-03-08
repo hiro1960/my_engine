@@ -31,6 +31,15 @@ pub fn update(db: &mut simframe::sim_data::SimData) {
 
             println!("{} {}", db.object_db[n].id(), db.object_db[n].pos());
         }
+
+        // 全てのオブジェクトの更新後のデータを、現在のものとする
+        for n in 0..num {
+            let pos = db.object_db[n].post_pos();
+            db.object_db[n].set_pos( &pos );
+
+            let vel = db.object_db[n].post_vel();
+            db.object_db[n].set_vel( &vel );
+        }
     }
 
 }

@@ -8,6 +8,9 @@ pub struct BaseModel {
     category: String,
     pos: core::point::Point,
     vel: core::point::Point,
+    // 更新後の値
+    post_pos: core::point::Point,
+    post_vel: core::point::Point,
 }
 
 impl BaseModel {
@@ -18,6 +21,8 @@ impl BaseModel {
             category: String::new(),
             pos: core::point::Point::new(),
             vel: core::point::Point::new(),
+            post_pos: core::point::Point::new(),
+            post_vel: core::point::Point::new(),
         }
     }
 
@@ -65,6 +70,25 @@ impl BaseModel {
     }
 
     /**
+     * （更新後の）位置の取得
+     * 
+     * @return pos Point型
+     */
+    pub fn post_pos(&self) -> core::point::Point {
+        // Point型のCopy traitがここで動く(#[derive(Debug, Copy, Clone)]定義をしてある)
+        self.post_pos
+    }
+
+    /**
+     * （更新後の）速度の取得
+     * 
+     * @return vel Point型
+     */
+    pub fn post_vel(&self) -> core::point::Point {
+        self.post_vel
+    }
+
+    /**
      * 位置の設定
      * @param[in] pt Point型
      */
@@ -84,6 +108,28 @@ impl BaseModel {
         self.vel.set_x( pt.x() );
         self.vel.set_y( pt.y() );
         self.vel.set_z( pt.z() );
+    }
+
+    /**
+     * （更新後の）位置の設定
+     * @param[in] pt Point型
+     */
+    pub fn set_post_pos(&mut self, pt: &core::point::Point) {
+        // 位置の設定
+        self.post_pos.set_x( pt.x() );
+        self.post_pos.set_y( pt.y() );
+        self.post_pos.set_z( pt.z() );
+    }
+
+    /**
+     * （更新後の）速度の設定
+     * @param[in] pt Point型
+     */
+    pub fn set_post_vel(&mut self, pt: &core::point::Point) {
+        // 速度の設定
+        self.post_vel.set_x( pt.x() );
+        self.post_vel.set_y( pt.y() );
+        self.post_vel.set_z( pt.z() );
     }
 
 }

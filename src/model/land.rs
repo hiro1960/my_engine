@@ -43,6 +43,8 @@ impl basemodel::Model for LandModel {
         pos.set_y(pos.y() + vel.y() * dt);
         pos.set_z(pos.z() + vel.z() * dt);
 
+        info!("{},{}",data.id(), pos);
+
         // 同じ変数に格納するのではなく、別変数（今回の時間の位置という意味）にする
         data.set_post_pos(&pos);
 

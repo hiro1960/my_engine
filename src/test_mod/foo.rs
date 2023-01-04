@@ -119,6 +119,15 @@ pub fn env_test() {
 }
 
 pub fn simframe_test() {
+
+    let x = 5;
+    // 出力レベル順（下に行くほど、情報量が増える）
+    error!("Bright red error {}", x);
+    warn!("warn");
+    info!("This only appears in the log file");
+    debug!("This level is currently not enabled for any logger");
+    trace!("trace");
+
     let mut sim_db = simframe::sim_data::SimData::new();
     sim_db.time_set.set(10, 0.1);
 

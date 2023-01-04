@@ -5,11 +5,27 @@ mod core;
 mod model;
 mod simframe;
 
+#[macro_use] 
+extern crate log;
+extern crate simplelog;
+
+use simplelog::*;
+use std::fs::File;
+
 use std::process;
 use std::env;
 
 fn main() {
     println!("Hello, world!");
+
+    // simple_loggerを入れる
+    // mainで定義する必要がある（使うのは別モジュールでもOK）
+    CombinedLogger::init(
+        vec![
+            TermLogger::new(LevelFilter::Trace, Config::default(), TerminalMode::Mixed, ColorChoice::Auto),
+            WriteLogger::new(LevelFilter::Trace, Config::default(), File::create("my_engine.log").unwrap()),
+        ]
+    ).unwrap();
 
     // モジュールの実装テスト
     // test_mod::foo::foo_func1();

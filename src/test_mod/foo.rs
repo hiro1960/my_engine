@@ -114,6 +114,8 @@ pub fn env_test() {
     println!("radius = {}", env.radius());
 
     env.set_up("environment.json");
+
+    println!("static pressure test ={}", env.static_pressure.get_value(66.0));
 }
 
 pub fn simframe_test() {

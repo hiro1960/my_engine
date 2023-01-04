@@ -91,7 +91,7 @@ fn main() {
     // test_mod::foo::model_test();
 
     // Envのテスト
-    // test_mod::foo::env_test();
+    test_mod::foo::env_test();
 
 
     // simframeの実装準備

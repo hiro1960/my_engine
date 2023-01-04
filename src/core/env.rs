@@ -15,8 +15,8 @@ pub struct Env {
     g: f64,         // 万有引力定数[m3/kg/s2]
     gm: f64,        // 地心重力定数[m3/s2]
     sea_level_gravity: f64,     // 重力加速度[m/s2]
-    static_pressure: core::dcont::Dcont,    // 静圧
-    sound_velocity: core::dcont::Dcont,     // 音速
+    pub static_pressure: core::dcont::Dcont,    // 静圧
+    pub sound_velocity: core::dcont::Dcont,     // 音速
 }
 
 impl Env {

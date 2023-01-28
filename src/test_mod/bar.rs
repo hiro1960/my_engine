@@ -1,4 +1,6 @@
-// useやmodは基本、直下を参照する。useだけ親（同位置）、先祖の子モジュールを参照できる。
+/*
+useやmodは基本、直下を参照する。useだけ親（同位置）、先祖の子モジュールを参照できる。
+*/
 use super::super::core;
 
 pub fn bar_func() {
